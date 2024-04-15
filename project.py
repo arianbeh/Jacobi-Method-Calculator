@@ -38,9 +38,50 @@ import numpy as np
 # print("Result of Jacobi Method for N=2:", result)
 
 
-#get A0
-def get_A0(A, n):
+
+def get_D(A, n):
+    D = np.zeros(n, n)
+    for i in range (n):
+        D[i, i] = A[i, i]
+    return D
+
+def get_A0(A, D, n):
     A0 = np.zeros(n, n)
     for i in range (n):
-        
+        A0[:,i] = A[:,i] - D[:, i] #get the i-th column 
+    return A0
+
+def get_D_inverse(D, n):
+    D_inverse = np.zeros(n, n)
+    for i in range(n):
+        D_inverse[i, i] = 1 / D[i, i]
+    return D_inverse
+
+def max_entry(v, n):
+    max = 0
+    for i in range (n):
+        val = abs(v[i])
+        if val > max:
+            max = val
+    return max
+
+def multiply(A, x, n):
+    result = np.zeros(n)
+    for i in range (n):
+        for j in range (n):
+            result[i] += A[i, j] * n[j]
+    return result 
+
+# e is epsilon
+def Jacobi(A, n, b, e):
+    x = np.zeros(n)
+    v = multiply(A, x)
+    D = get_D(A, n)
+    A0 = get_A0(A, D, n)
+    D_inverse = get_D_inverse(D, n)
+    while(max(v - b) >= e):
+        temp = b - multiply(A0, x)
+        x = multiply(D_inverse, temp)
+        v = multiply(A, x)
+    print(X)
         
