@@ -65,7 +65,7 @@ def max_entry(v, n):
             max = val
     return max
 
-def multiply(A, x, n):
+def multiply(A, n):
     result = np.zeros(n)
     for i in range (n):
         for j in range (n):
@@ -77,11 +77,11 @@ def Jacobi(A, n, b, e):
     x = np.zeros(n)
     v = multiply(A, x)
     D = get_D(A, n)
-    A0 = get_A0(A, D, n)
+    A0 = get_A0(A, D)
     D_inverse = get_D_inverse(D, n)
     while(max(v - b) >= e):
         temp = b - multiply(A0, x)
         x = multiply(D_inverse, temp)
         v = multiply(A, x)
-    print(X)
+    return x
         
