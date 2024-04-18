@@ -83,5 +83,5 @@ def Jacobi(A, n, b, e):
         temp = b - multiply(A0, x)
         x = multiply(D_inverse, temp)
         v = multiply(A, x)
-    print(X)
+    print(x)
         
