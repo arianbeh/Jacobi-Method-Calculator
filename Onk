@@ -70,19 +70,19 @@ def generate_diag_dom(n):
         if (np.linalg.det(sparse_matrix) != 0):
             return sparse_matrix
 
-n = 20
+n = 160
 A = generate_diag_dom(n)
 b = np.random.randint(-10, 10, size=(n,))
 epsilon = 1 * 10**-14
-start_time = time.time()
-expected = np.linalg.solve(A, b)
-end_time = time.time()
-print("Elapsed time for numpy: ", end_time - start_time)
 
 print("A:", A)
 print("b:", b)
 print("Target size: ", max_nonzeroes_in_row(A) * n)
 print("size of A: ", n * n)
+start_time = time.time()
+expected = np.linalg.solve(A, b)
+end_time = time.time()
+print("Elapsed time for numpy: ", end_time - start_time)
 start_time = time.time()
 actual, iterations = jacobi_method(A, b, epsilon)
 end_time = time.time()
