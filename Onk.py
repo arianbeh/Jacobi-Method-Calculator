@@ -4,7 +4,6 @@ import time
 def jacobi_method(A, b, epsilon):
     n = A.shape[0] 
     entries, jump = sparse_matrix(A, n)
-    print("Size of new A:", len(entries) * 2)
     x = np.zeros(n, dtype=np.float64)
     iteration_count = 0 
     operations = 0
@@ -22,7 +21,6 @@ def jacobi_method(A, b, epsilon):
             operations += 1
             x_count += 1
             i += 1
-        # print("Current iteration solved: ", x_new)
         result = x_new - x
         operations += 1
         norm = np.float64(0)
@@ -63,9 +61,7 @@ def generate_diag_dom(n):
         dense_matrix = np.random.randint(0, 10, size=(n, n))       
         # Create a mask for sparse entries
         mask = np.random.choice([0, 1], size=(n, n), p=[sparsity, 1 - sparsity])       
-        # Apply the mask to the dense matrix
         sparse_matrix = dense_matrix * mask       
-        # Check if the condition number is less than the threshold
         for i in range(len(sparse_matrix)):
             sum = 0
             for j in range(len(sparse_matrix[i])):
@@ -75,24 +71,3 @@ def generate_diag_dom(n):
         if (np.linalg.det(sparse_matrix) != 0):
             return sparse_matrix
 
-# n = 160
-# A = generate_diag_dom(n)
-# b = np.random.randint(-10, 10, size=(n,))
-# epsilon = 1 * 10**-14
-
-# print("A:", A)
-# print("b:", b)
-# print("Target size: ", max_nonzeroes_in_row(A) * n)
-# print("size of A: ", n * n)
-# start_time = time.time()
-# expected = np.linalg.solve(A, b)
-# end_time = time.time()
-# print("Elapsed time for numpy: ", end_time - start_time)
-# start_time = time.time()
-# actual, iterations = jacobi_method(A, b, epsilon)
-# end_time = time.time()
-# print("Elapsed time for Jacobi: ", end_time - start_time)
-
-# print("Iterations: ", iterations)
-# print("Actual:", actual)
-# print("Expected:", expected)
